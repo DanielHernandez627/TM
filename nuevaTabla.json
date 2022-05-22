@@ -1,157 +1,60 @@
 {
-    "desea":[
+    "V":[
         {
             "O": "SP",
             "SP": "SN|VP",
             "SNP": "e",
-            "V": "desea",
+            "V": "e",
             "SV": "VP",
             "SN": "NP",
-            "N": "VP",
+            "N": "V",
             "NP": "N",
-            "VP": "V"
-        }
-    ],
-    "otro":[
-        {
-            "SNP":"e",
-            "V": "PRO",
-            "SV": "VP",
-            "VP": "V"
-        }
-    ],
-    "tipo":[
-        {
-            "O": "SP",
-            "SP": "SN",
-            "SN": "NP",
-            "N": "tipo",
-            "NP": "N",
-            "$": "SN"
-        }
-    ],
-    "de": [
-        {
-            "DET": "de",
-            "$": "DET"
-        }
-    ],
-    "adicion":[
-        {
-            "O": "SP",
-            "SP": "SN",
-            "SN": "NP",
-            "N": "adicion",
-            "NP": "N",
-            "$": "SN"
-        }
-    ],
-    "el": [
-        {
-            "DET":"el",
-            "SNP":"DET",
-            "$": "SNP"
-
-        }
-    ],
-    "gustaria":[
-        {
-            "O": "SP",
-            "SP": "SN",
-            "SNP": "e",
-            "V":"gustaria",
-            "VP": "V"
-        }
-    ],
-    "ordenar":[
-        {
-            "SNP": "e",
-            "V": "ordenar",
-            "SV": "VP",
-            "VP": "V"
-        }
-    ],
-    "algo":[
-        {
-            "SADV":"ADV",
-            "ADV":"algo"
-        }
-    ],
-    "mas":[
-        {
-            "SADV":"ADV",
-            "ADV":"mas"
-        }
-    ],
-    "repetir":[
-        {
-            "O": "SP",
-            "V": "repetir",
-            "VP": "V"
-        }
-    ],
-    "menu": [
-        {
-            "O": "SP",
-            "SP": "SN",
-            "SN": "NP",
-            "N": "menu",
-            "NP": "N",
-            "$": "SN"
-        }
-    ],
-    "ver":[
-        {
-            "SNP": "e",
-            "V":"ver",
-            "SV": "VP",
             "VP": "V",
-            "$": "VP"
+            "$": "VP",    
+            "PRO": "NP"
         }
     ],
-    "las": [
+    "N":[
         {
-            "DET": "las",
-            "$": "DET"
-        }
-    ],
-    "opciones":[
-        {
+            "DET": "NP",
+            "V":"NP",
             "O": "SP",
             "SP": "SN",
             "SN": "NP",
-            "N":"opciones",
             "NP": "N",
-            "$": "SN"
+            "$": "SN",
+            "PRO": "N"
         }
     ],
-    "recomendadas":[
+    "ADV":[
+        {
+            "SADV":"ADV",
+            "ADV": "e"
+        }
+    ],
+    "DET":[
+        {
+            "N": "SNP",
+            "SNP":"DET",
+            "$": "SNP|DET",
+            "V": "SNP"
+        }
+    ],
+    "PRO":[
         {
             "O": "SP",
-            "SP": "SN",
-            "SN": "NP",
-            "N":"recomendadas",
-            "NP": "N",
-            "$": "SN"
-        }
-    ],
-    "su":[
-        {
-            "P":"su"
-        }
-    ],
-    "pedido":[
-        {
-            "O": "SP",
-            "SP": "SN",
-            "SN": "NP",
-            "N":"pedido",
-            "NP": "N"
+            "SP": "PRO",
+            "SNP":"DET",
+            "$": "SNP",
+            "V" :"PRO",
+            "N": "e"
         }
     ],
     "$":[
         {
-            "SNP": "e"
+            "SNP": "e",
+            "N": "e"
+
         }
     ]
 }

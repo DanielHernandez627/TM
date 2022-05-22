@@ -116,7 +116,7 @@ def search_Gramatic(x, ae):
     if (verify_table_select() == 1):
         table = "tablaIntroduccion.json"
     elif (verify_table_select() == 2):
-        table = "tabla2.json"
+        table = "nuevaTabla.json"
     with open(table, "r") as j:
         mydata = json.load(j)
         for data in mydata[ae]:
@@ -128,7 +128,7 @@ def search_Dataterminal(ae):
     if (verify_table_select() == 1):
         table = "tablaIntroduccion.json"
     elif (verify_table_select() == 2):
-        table = "tabla2.json"
+        table = "nuevaTabla.json"
     with open(table, "r") as j:
         mydata = json.load(j)
         for data in mydata[ae]:
