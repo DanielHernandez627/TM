@@ -26,10 +26,11 @@ table = ""
 
 
 def clean():
-    lb2['text'] = ""
-    lb4['text'] = ""
-    lb8['text'] = ""
-    lb9['text'] = ""
+
+   # lb2['text'] = ""
+   # lb4['text'] = ""
+    # lb8['text'] = ""
+    # lb9['text'] = ""
     global terminal_select
     terminal_select = ""
     global splitToken
@@ -82,11 +83,11 @@ def browseFiles():
                                                         "*.txt*"),
                                                        ("all files",
                                                         "*.*")))
-    lb2.configure(text=rutfichero)
+    print(rutfichero) #se remplazo lb2.configure(text=rutfichero) por print(rutfichero)
 
 
 def openfile():
-    fichero = open(lb2.cget("text"))
+    fichero = open("textabrir") #fichero = open(lb2.cget("text")) se remplazo por print(fichero = open("textabrir"))
     for i in fichero.readlines():
         return i
 
@@ -116,7 +117,7 @@ def search_Gramatic(x, ae):
     if (verify_table_select() == 1):
         table = "tablaIntroduccion.json"
     elif (verify_table_select() == 2):
-        table = "nuevaTabla.json"
+        table = "tabla2.json"
     with open(table, "r") as j:
         mydata = json.load(j)
         for data in mydata[ae]:
@@ -128,7 +129,7 @@ def search_Dataterminal(ae):
     if (verify_table_select() == 1):
         table = "tablaIntroduccion.json"
     elif (verify_table_select() == 2):
-        table = "nuevaTabla.json"
+        table = "tabla2.json"
     with open(table, "r") as j:
         mydata = json.load(j)
         for data in mydata[ae]:
@@ -162,7 +163,7 @@ def verify_Gramatic(size_terminal, x, ae):
             else:
                 x = search_final_not_terminal()
 
-        lb4.config(text=final_exit)
+        print(final_exit) #se remplaza lb4.config(text=final_exit) por print(final_exit)
         exit_gramitc = ""
         i = i + 1
         if ae == x:
@@ -184,7 +185,7 @@ def printer_pila():
         if len(not_terminal) > 1:
             state_pila = state_pila + " " + i
     state_pila = state_pila + "\n"
-    lb8.config(text=state_pila)
+    print(state_pila) #remplazo lb8.config(text=state_pila) por print(state_pila)
 
 
 def printer_pila_entrada():
@@ -192,7 +193,7 @@ def printer_pila_entrada():
     for i in splitToken2:
         state_entrada = state_entrada + " " + i
     state_entrada = state_entrada + "\n" + "\n"
-    lb9.config(text=state_entrada)
+    print(state_entrada) #remplaza lb9.config(text=state_entrada) por print(state_entrada)
 
 
 def verify_table_select():
@@ -206,7 +207,7 @@ def verify_table_select():
 
 def analizador():
     token = openfile()
-    lb3['text'] = "Oracion ingresada: " + search_token(token)
+    lb3 = "Oracion ingresada: " + search_token(token) #se remplaza lb3['text' por lb3
     tokenFinal = token + "|$"
     splitToken = tokenFinal.split("|")
     global splitToken2
@@ -256,63 +257,8 @@ def analizador():
 
 # Fin logica
 
-# Inicio configuracion grafica
-window = Tk()
-window.title('Analizador sintactico')
-window.geometry('700x650')
-window['bg'] = "#D2D1D1"
-lb1 = Label(window, text="Seleccione el archivo a leer")
-lb1.grid(column=0, row=0)
-lb1.place(x=104, y=35, anchor="center")
-lb1['bg'] = "#D2D1D1"
-lb2 = Label(window)  # Ruta del fichero de entrada
-lb2.grid(column=1, row=1)
-lb2.place(x=30, y=50)
-lb2['bg'] = "#D2D1D1"
-lb3 = Label(window)
-lb3.place(x=30, y=75)
-lb3['bg'] = "#D2D1D1"
-lb4 = Label(window)
-lb4.place(x=350, y=115)
-lb4['bg'] = "#D2D1D1"
-lb5 = Label(window, text="Salida")
-lb5.place(x=350, y=110)
-lb5['bg'] = "#D2D1D1"
-lb6 = Label(window, text="Pila")
-lb6.place(x=50, y=110)
-lb6['bg'] = "#D2D1D1"
-lb7 = Label(window, text="Entrada")
-lb7.place(x=170, y=110)
-lb7['bg'] = "#D2D1D1"
-lb8 = Label(window)
-lb8.place(x=30, y=147)
-lb8['bg'] = "#D2D1D1"
-lb9 = Label(window)
-lb9.place(x=150, y=150)
-lb9['bg'] = "#D2D1D1"
-btnsearch = Button(window, text="Buscar", command=browseFiles)
-btnsearch.grid(column=0, row=0)
-btnsearch.place(x=500, y=48)
-btnverify = Button(window, text="Verificar", command=analizador)
-btnverify.grid(column=0, row=0)
-btnverify.place(x=500, y=80)
+
+
 var1 = BooleanVar()
 var2 = BooleanVar()
-check1 = Checkbutton(window, text="Primera Entrega", variable=var1)
-check1.grid(column=0, row=0)
-check1.place(x=499, y=120)
-check1['bg'] = "#D2D1D1"
-check2 = Checkbutton(window, text="Segunda Entrega", variable=var2)
-check2.grid(column=0, row=0)
-check2.place(x=499, y=155)
-check2['bg'] = "#D2D1D1"
-
-
 # Fin configuracion grafica
-
-def run():
-    window.mainloop()
-
-
-if __name__ == '__main__':
-    run()
