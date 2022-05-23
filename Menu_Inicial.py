@@ -4,11 +4,14 @@ from tkinter import filedialog
 import json
 import os
 import Analizador_Lexico as Al
+import AnalisisSintactico as As
 
 TokenInit = ""
 LexemaInit = ""
 SymbolTable = ""
 TokenSn = ""
+Word_Error = ""
+
 
 def clean():
     global TokenInit, LexemaInit, SymbolTable, TokenSn
@@ -17,6 +20,7 @@ def clean():
     SymbolTable = ""
     TokenSn = ""
 
+
 def create_table_simbol(symbols):
     ruta = os.path.abspath(os.getcwd())
     file = open(ruta + "\\" + "symboltable.txt", "w")
@@ -24,8 +28,19 @@ def create_table_simbol(symbols):
     file.close()
 
 
+def search_gramatic(entrada):
+    global Word_Error
+    if entrada != '':
+        for ch in entrada.split(" "):
+            if Al.tokenizador(ch) == "":
+                Word_Error = ch
+                return False
+            else:
+                return True
+
+
 def exe_fase1():  # Fase 1 pertenece a el analisis lexico de la frase y su respectiva tokenizacion
-    global TokenInit, LexemaInit, SymbolTable,TokenSn
+    global TokenInit, LexemaInit, SymbolTable, TokenSn
     entrada = input1.get()
     i = 0
     state = True
@@ -34,22 +49,41 @@ def exe_fase1():  # Fase 1 pertenece a el analisis lexico de la frase y su respe
             if ch.find("?") > 0 or ch.find("?") == -1:
                 if Al.algoritmoInt(ch):
                     TokenInit = TokenInit + "int" + "\n"
+
                     if LexemaInit == "":
                         LexemaInit = ch
-                        TokenSn = Al.tokenizador(ch) + "\n"
+                        if Al.tokenizador(ch) == "":
+                            TokenSn = "Error"
+                        else:
+                            TokenSn = Al.tokenizador(ch)
                     else:
                         LexemaInit = LexemaInit + "\n" + ch
-                        TokenSn = TokenSn + " " + Al.tokenizador(ch)
+
+                        if Al.tokenizador(ch) == "":
+                            TokenSn = "Error"
+                        else:
+                            TokenSn = TokenSn + " " + Al.tokenizador(ch)
+
                     SymbolTable = SymbolTable + ch + "," + "int" + "\r"
                 elif Al.algoritmoId(ch):
+
                     TokenInit = TokenInit + "id" + "\n"
+
                     if LexemaInit == "":
-                        TokenSn = Al.tokenizador(ch)
+                        if Al.tokenizador(ch) == "":
+                            TokenSn = "Error"
+                        else:
+                            TokenSn = Al.tokenizador(ch)
                         LexemaInit = ch
                     else:
-                        TokenSn = TokenSn + " " + Al.tokenizador(ch)
+                        if Al.tokenizador(ch) == "":
+                            TokenSn = "Error"
+                        else:
+                            TokenSn = TokenSn + " " + Al.tokenizador(ch)
                         LexemaInit = LexemaInit + "\n" + ch
+
                     SymbolTable = SymbolTable + ch + "," + "id" + "\r"
+
                 else:
                     MessageBox.showinfo("Alerta",
                                         "Error Lexico en " + ch + " por el simbolo " + Al.fallo())
@@ -67,13 +101,18 @@ def exe_fase1():  # Fase 1 pertenece a el analisis lexico de la frase y su respe
             MessageBox.showinfo("Alerta", "Oracion correcta. " + str(i) + " Palabras analizadas")
             lb3.config(text=LexemaInit)
             lb5.config(text=TokenInit)
-            lb6.config(text="Token Sintactico "+TokenSn)
+
     else:
         MessageBox.showinfo("Alerta", "No se aceptan cadenas vacias")
 
 
 def exe_fase2():
-    print("prueba")
+    global TokenSn, Word_Error
+    if search_gramatic(input1.get()):
+        if As.analizador(TokenSn):
+            lb6.config(text=TokenSn.replace(" ", "\n"))
+    else:
+        MessageBox.showinfo("Alerta", "Palabra no pertenece a la gramatica " + Word_Error)
 
 
 # Inicio configuracion grafica
@@ -97,10 +136,12 @@ lb4['bg'] = "#D2D1D1"
 lb5 = Label(window)
 lb5.place(x=105, y=135)
 lb5['bg'] = "#D2D1D1"
-lb6 = Label(window, text="")
-lb6.grid(column=0, row=0)
-lb6.place(x=300, y=48)
+lb6 = Label(window)
+lb6.place(x=220, y=135)
 lb6['bg'] = "#D2D1D1"
+lb7 = Label(window, text="Token Sintactico")
+lb7.place(x=190, y=110)
+lb7['bg'] = "#D2D1D1"
 input1 = Entry(window, width=40)
 input1.grid(column=0, row=0)
 input1.place(x=130, y=60, anchor="center")

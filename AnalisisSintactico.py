@@ -6,13 +6,13 @@ from webbrowser import get
 
 # Inicio logica
 
-terminal = ["id", "+", "*", "(", ")", "$","desea" ,"otro", "tipo", "de", "adicion", "el", "gustaria", "ordenar",
+terminal = ["id", "+", "*", "(", ")", "$", "desea", "otro", "tipo", "de", "adicion", "el", "gustaria", "ordenar",
             "algo", "mas", "repetir", "menu", "ver", "las", "opciones", "recomendadas", "su", "pedido"]
-verbos = ["desea","gustaria","ordenar","repetir","ver"]
-nucleo = ["tipo","adicion","menu","opciones","recomendadas","pedido"]
-adj = ["algo","mas"]
-det = ["el","de","las"]
-pro = ["su","otro","le"]
+verbos = ["desea", "gustaria", "ordenar", "repetir", "ver"]
+nucleo = ["tipo", "adicion", "menu", "opciones", "recomendadas", "pedido"]
+adj = ["algo", "mas"]
+det = ["el", "de", "las"]
+pro = ["su", "otro", "le"]
 terminal_select = ""
 splitToken = []
 splitToken2 = []
@@ -26,9 +26,8 @@ table = ""
 
 
 def clean():
-
-   # lb2['text'] = ""
-   # lb4['text'] = ""
+    # lb2['text'] = ""
+    # lb4['text'] = ""
     # lb8['text'] = ""
     # lb9['text'] = ""
     global terminal_select
@@ -49,6 +48,7 @@ def clean():
     state_pila = ""
     global state_entrada
     state_entrada = ""
+
 
 def search_words(word):
     for i in verbos:
@@ -74,24 +74,6 @@ def search_words(word):
     return ""
 
 
-def browseFiles():
-    clean()
-    MessageBox.showwarning("Alerta", "Cada cadena debe esta seperar por el simbolo |. Ejemplo Id|+|Id")
-    rutfichero = filedialog.askopenfilename(initialdir="/",
-                                            title="Select a File",
-                                            filetypes=(("Text files",
-                                                        "*.txt*"),
-                                                       ("all files",
-                                                        "*.*")))
-    print(rutfichero) #se remplazo lb2.configure(text=rutfichero) por print(rutfichero)
-
-
-def openfile():
-    fichero = open("textabrir") #fichero = open(lb2.cget("text")) se remplazo por print(fichero = open("textabrir"))
-    for i in fichero.readlines():
-        return i
-
-
 def remove_pila_terminal(x):
     for t in terminal:
         if x == t or x == "$":
@@ -105,19 +87,16 @@ def error():
 
 
 def search_token(token):
-    sentece = token.split("|")
+    sentece = token.split(" ")
     senteceFinal = ""
     for i in sentece:
-        senteceFinal = senteceFinal + i
+        senteceFinal = senteceFinal + i + "|"
     return senteceFinal
 
 
 def search_Gramatic(x, ae):
     global table
-    if (verify_table_select() == 1):
-        table = "tablaIntroduccion.json"
-    elif (verify_table_select() == 2):
-        table = "tabla2.json"
+    table = "nuevaTabla.json"
     with open(table, "r") as j:
         mydata = json.load(j)
         for data in mydata[ae]:
@@ -126,10 +105,7 @@ def search_Gramatic(x, ae):
 
 def search_Dataterminal(ae):
     global table
-    if (verify_table_select() == 1):
-        table = "tablaIntroduccion.json"
-    elif (verify_table_select() == 2):
-        table = "tabla2.json"
+    table = "nuevaTabla.json"
     with open(table, "r") as j:
         mydata = json.load(j)
         for data in mydata[ae]:
@@ -146,11 +122,11 @@ def verify_Gramatic(size_terminal, x, ae):
         for zx in gramatic_return.split("|"):  # Este for es para la generacion de salidas
             exit_gramitc = exit_gramitc + zx
         if i == 0:
-                verify_word = search_words(exit_gramitc)
-                if verify_word != "":
-                    final_exit = final_exit + "\n" + "\n" + x_original + "->" + verify_word
-                else:
-                    final_exit = final_exit + "\n" + "\n" + x_original + "->" + exit_gramitc
+            verify_word = search_words(exit_gramitc)
+            if verify_word != "":
+                final_exit = final_exit + "\n" + "\n" + x_original + "->" + verify_word
+            else:
+                final_exit = final_exit + "\n" + "\n" + x_original + "->" + exit_gramitc
         else:
             final_exit = final_exit + "\n" + "\n" + x + "->" + exit_gramitc
         if (x != "$"):
@@ -158,12 +134,10 @@ def verify_Gramatic(size_terminal, x, ae):
         for z in reversed(gramatic_return.split("|")):  # Este for es para la pila
             if z != "e":
                 not_terminal.append(z)
-                printer_pila()
                 x = z
             else:
                 x = search_final_not_terminal()
 
-        print(final_exit) #se remplaza lb4.config(text=final_exit) por print(final_exit)
         exit_gramitc = ""
         i = i + 1
         if ae == x:
@@ -179,68 +153,28 @@ def search_final_not_terminal():
     return not_terminal_final
 
 
-def printer_pila():
-    global state_pila
-    for i in not_terminal:
-        if len(not_terminal) > 1:
-            state_pila = state_pila + " " + i
-    state_pila = state_pila + "\n"
-    print(state_pila) #remplazo lb8.config(text=state_pila) por print(state_pila)
-
-
-def printer_pila_entrada():
-    global state_entrada
-    for i in splitToken2:
-        state_entrada = state_entrada + " " + i
-    state_entrada = state_entrada + "\n" + "\n"
-    print(state_entrada) #remplaza lb9.config(text=state_entrada) por print(state_entrada)
-
-
-def verify_table_select():
-    if (var1.get() == True and var2.get() == False):
-        return 1
-    elif (var1.get() == False and var2.get() == True):
-        return 2
-    else:
-        return 0
-
-
-def analizador():
-    token = openfile()
-    lb3 = "Oracion ingresada: " + search_token(token) #se remplaza lb3['text' por lb3
-    tokenFinal = token + "|$"
+def analizador(tokenizacion):
+    token = search_token(tokenizacion)
+    tokenFinal = token + "$"
     splitToken = tokenFinal.split("|")
     global splitToken2
     splitToken2 = tokenFinal.split("|")
     state_not_terminal_select = False
     not_terminal.append("$")
+    not_terminal.append("O")
+    not_terminal_select = "O"
 
-    if (verify_table_select() == 1):
-        not_terminal.append("E")
-        not_terminal_select = "E"
-    elif (verify_table_select() == 2):
-        not_terminal.append("O")
-        not_terminal_select = "O"
-    else:
-        MessageBox.showwarning("Alerta", "Ninguna entrega seleccionada")
-        return 0
-
-    printer_pila()
-    printer_pila_entrada()
     for idx, x in enumerate(splitToken):
         terminal_select = x
         splitToken2.pop(0)
-        printer_pila_entrada()
         if remove_pila_terminal(
                 not_terminal_select) == True or not_terminal_select == "$" and state_not_terminal_select == False:
-            if remove_pila_terminal(not_terminal_select) == True:
-                printer_pila()
+            if remove_pila_terminal(not_terminal_select):
                 not_terminal.remove(not_terminal_select)
-                printer_pila()
                 state_not_terminal_select = True
                 not_terminal_select = search_final_not_terminal()
                 if x != "$":
-                    if state_not_terminal_select == True:  # Ejecucion de verificacion de gramaitca posterior a la eliminacion de un terminal de la pila
+                    if state_not_terminal_select:  # Ejecucion de verificacion de gramaitca posterior a la eliminacion de un terminal de la pila
                         not_terminal_select = verify_Gramatic(search_Dataterminal(terminal_select), not_terminal_select,
                                                               terminal_select)
                         state_not_terminal_select = False
@@ -253,12 +187,5 @@ def analizador():
             not_terminal_select = verify_Gramatic(search_Dataterminal(terminal_select), not_terminal_select,
                                                   terminal_select)
             state_not_terminal_select = False
-
-
+    return True
 # Fin logica
-
-
-
-var1 = BooleanVar()
-var2 = BooleanVar()
-# Fin configuracion grafica

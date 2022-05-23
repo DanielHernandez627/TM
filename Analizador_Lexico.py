@@ -4,7 +4,7 @@ estadoAcepta = False;
 estado = 0
 estadoError = 0
 
-verbos = ["desea", "gustaria", "ordenar", "repetir", "ver"]
+verbos = ["desea", "gustaria", "ordenar", "repetir", "ver","finalizar"]
 nucleo = ["tipo", "adicion", "menu", "opciones", "recomendadas", "pedido"]
 adj = ["algo", "mas"]
 det = ["el", "de", "las"]
