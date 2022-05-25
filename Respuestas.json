@@ -1,0 +1,29 @@
+{
+  "adicion":
+  [
+    {
+      "total":"1.quesos|2.papas|3.Gaseosa|4.Postre"
+    }
+  ],
+  "menu":
+  [
+    {
+      "total": "1.pizzas|2.perros|3.hamburguesa|4.salchipapas"
+    }
+  ],
+  "recomendadas":
+  [
+    {
+      "pizza": "carnes",
+      "perros": "especial",
+      "hamburguesa": "carne",
+      "salchipapas": "mixto"
+    }
+  ],
+  "finalizar":
+  [
+    {
+      "Despedida": "gracias por ordenar, su pedido llegara en breve"
+    }
+  ]
+}

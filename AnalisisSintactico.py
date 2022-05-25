@@ -1,8 +1,5 @@
-from tkinter import *
 from tkinter import messagebox as MessageBox
-from tkinter import filedialog
 import json
-from webbrowser import get
 
 # Inicio logica
 
@@ -26,10 +23,6 @@ table = ""
 
 
 def clean():
-    # lb2['text'] = ""
-    # lb4['text'] = ""
-    # lb8['text'] = ""
-    # lb9['text'] = ""
     global terminal_select
     terminal_select = ""
     global splitToken
@@ -129,7 +122,7 @@ def verify_Gramatic(size_terminal, x, ae):
                 final_exit = final_exit + "\n" + "\n" + x_original + "->" + exit_gramitc
         else:
             final_exit = final_exit + "\n" + "\n" + x + "->" + exit_gramitc
-        if (x != "$"):
+        if x != "$":
             not_terminal.remove(x)
         for z in reversed(gramatic_return.split("|")):  # Este for es para la pila
             if z != "e":
@@ -174,7 +167,8 @@ def analizador(tokenizacion):
                 state_not_terminal_select = True
                 not_terminal_select = search_final_not_terminal()
                 if x != "$":
-                    if state_not_terminal_select:  # Ejecucion de verificacion de gramaitca posterior a la eliminacion de un terminal de la pila
+                    if state_not_terminal_select:  # Ejecucion de verificacion de gramaitca posterior a la
+                        # eliminacion de un terminal de la pila
                         not_terminal_select = verify_Gramatic(search_Dataterminal(terminal_select), not_terminal_select,
                                                               terminal_select)
                         state_not_terminal_select = False
